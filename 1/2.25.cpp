@@ -15,10 +15,28 @@ void Display_LinkList(NODE *tail)
     }
     printf("\n");
 }
+// void Sort_LinkList(NODE *tail)
+// {
+//     printf("开始排序");
+//     NODE *p=tail->next->next;
+//     NODE *q=p->next;
+//     int s;
+//     while(p != tail){
+//         while(q->next != tail->next){
+//             if(p->data > q->data){
+//                 s=q->data;
+//                 q->data=p->data;
+//                 p->data=s;
+//                 q=q->next;
+//             }
+//         }
+//         p=p->next;
+//     }
+// }
 NODE *Create_Linklist()
 {
     NODE *head,*tail,*pnew;
-    int data;
+    int data;char ch;
     head=(NODE *)malloc (sizeof(NODE));
     if(head==NULL){
         printf("no enough memory!\n");
@@ -28,10 +46,15 @@ NODE *Create_Linklist()
     tail=head;
     printf("input the data of node:\n");
     while(1){
-        scanf("%d",&data);
-        if(data<0){
+        ch=getchar();
+        if(ch!=' '&&ch!='\n'&&ch!='\r'&&(ch<'0'||ch>'9')){
+            printf("输入非法");
+            exit(-1);
+        }
+        if(ch=='\n'){
             break;
         }
+        scanf("%d",&data);
         pnew=(NODE *)malloc(sizeof(NODE));
         if(pnew==NULL){
             printf("no enough memory!\n");
@@ -43,15 +66,19 @@ NODE *Create_Linklist()
         tail->next=pnew;
         tail=pnew;
     }
+    printf("创建完毕\n");fflush(stdin);
     return (tail);
 }
+
 int main(){
     NODE *pa,*pb,*s,*La,*Lb,*rc,*Lc;
     //创建链表LA,LB
     La=Create_Linklist();
     Lb=Create_Linklist();
+//    Sort_LinkList(La);//排序la链表
     printf("La链表:");
     Display_LinkList(La);
+//    Sort_LinkList(Lb);//排序lb链表
     printf("Lb链表:");
     Display_LinkList(Lb);
 
