@@ -7,7 +7,7 @@ int main(){
     scanf("%d",&m);
     printf("几阶斐波拉契数列k:");
     scanf("%d",&k);
-    for(int i=0;i<10001;i++){
+    for(int i=0;i<m+1;i++){
         if(i<k){
             a[i]=0;
         }
