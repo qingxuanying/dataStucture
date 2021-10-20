@@ -30,3 +30,16 @@ int ListOppose_L(LinkList &L)
     }
     return 1;
 }
+int main(){
+    LinkList la=new LNode;
+    la->data=0;
+    la->next=new LNode;
+    la->next->data=1;
+    la->next->next=new LNode;
+    la->next->next->data=2;
+    la->next->next->next=new LNode;
+    la->next->next->next->data=3;
+    la->next->next->next->next=NULL;
+    ListOppose_L(la);
+    cout<<la->next->data<<endl;
+}

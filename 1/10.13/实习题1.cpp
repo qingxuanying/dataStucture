@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include <string.h>
 #include <math.h>
-
+#include <iostream>
+using namespace std;
 struct Goods {
     int gid;
     char gname[20];
@@ -13,7 +13,9 @@ struct Node {
     Node * next;
 };
 int ListLenth=1;
+Node *GList;
 
+//用循环链表存储的
 Node * CreatGList(){
     Node *head,*tail,*pnew;
     double tmp;
@@ -68,16 +70,28 @@ void showGoods(Node *List){
 }
 
 void sortGoodsByPrice(Node *List){
-    Node *p,*p,*pre,*qre;
+    Node *p,*q,*pre,*qre;
     pre=List;
     qre=List->next;
     for(p=List->next;p->next != List ; p=p->next){
-
+        for()
     }
 };
+void opList_customer(){
+    int i;
+    printf("\n--欢迎来到本超市--\n");
+    printf("--1.购买商品--\n");
+    printf("--2.结账离开--\n");
+    printf("请选择操作:");
+    cin>>i;
+    if(i==1){
 
+    }
+    else{
+
+    }
+}
 int main(){
-    Node *GList;
     GList = CreatGList();
     showGoods(GList);
     return 0;

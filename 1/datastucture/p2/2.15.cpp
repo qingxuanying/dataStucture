@@ -35,3 +35,17 @@ void MergeList_L(LinkList &ha,LinkList &hb,LinkList &hc)
         pa->next=hb->next;
     }
 }
+int main(){
+    LinkList la,lb,lc;
+    la=new LNode;
+    lb=new LNode;
+    lc=new LNode;
+    la->next=new LNode;
+    la->next->data=1;
+    la->next->next=new LNode;
+    la->next->next->data=3;
+    lb->next=new LNode;
+    lb->next->data=2;
+    MergeList_L(la,lb,lc);
+    cout<<lc->next->data<<lc->next->next->data<<lc->next->next->next->data<<endl;
+}

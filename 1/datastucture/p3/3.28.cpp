@@ -62,3 +62,10 @@ int DeQueue(Queue &q, int &e)
     q.size--;
     return 1;
 }
+int main(){
+    Queue s;
+    int e;
+    EnQueue(s,12);
+    DeQueue(s,e);
+    cout<<e<<endl;
+}

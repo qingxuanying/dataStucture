@@ -60,3 +60,17 @@ int ListMergeOppose_L(LinkList &A, LinkList &B, LinkList &C)
     free(pb);
     return 1;
 }
+int main(){
+    LinkList la,lb,lc;
+    la=new LNode;
+    lb=new LNode;
+    lc=new LNode;
+    la->next=new LNode;
+    la->next->data=1;
+    la->next->next=new LNode;
+    la->next->next->data=3;
+    lb->next=new LNode;
+    lb->next->data=2;
+    ListMergeOppose_L(la,lb,lc);
+    cout<<lc->next->data<<lc->next->next->data<<lc->next->next->next->data<<endl;
+}

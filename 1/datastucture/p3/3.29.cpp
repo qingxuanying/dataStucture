@@ -45,3 +45,11 @@ int DeQueue(Queue &q, ElemType &e)
     }
     return 1;
 }
+int main(){
+    Queue q;
+    InitQueue(q);
+    int i,j,k;
+    i=12;
+    EnQueue(q,i);
+    cout<<q.tag<<endl;
+}
