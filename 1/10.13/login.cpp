@@ -66,13 +66,29 @@ int login()
     cout << "用户不存在" << endl;
     return -1;
 }
-void initUser()
+int ifInit()
+{
+    uNode* p =ulist->next;
+    while(p!=NULL){
+        if(ulist->user.ifowner == 2){
+            return 1;
+        }
+    }
+    return 0;
+}
+int initUser()
 {
     uNode *p;
+    int k=0;
+    k=ifInit();
+    if(k){
+        return 0;
+    }
     p = (uNode *)malloc(sizeof(uNode));
     p->next = NULL;
     p->user.ifowner = 2;
     strcpy(p->user.name, "root");
     strcpy(p->user.password, "123456");
     ulist->next = p;
+    return 1;
 }

@@ -21,6 +21,7 @@ struct Node
 int ListLenth = 1;
 int buyLenth = 1;
 int ifowner = -1;
+//int moner = 0;
 Node *GList;
 Node *Buy_List;
 char *filename;
@@ -77,7 +78,7 @@ Node *CreatGList()
             Goodstofile(filename);
             exit(-1);
         }
-        printf("1");
+       // printf("1");
         pnew->good.gid = ListLenth;
         ListLenth++;
         strcpy(pnew->good.gname, string);
@@ -95,11 +96,11 @@ Node *CreatGList()
     fflush(stdin);
     return (head);
 }
-Node *List_index(Node *GList, char *s)
+Node *List_index(Node *List, char *s)
 {
     Node *p;
-    p = GList->next;
-    while (p != GList)
+    p = List->next;
+    while (p != NULL)
     {
         if (strcmp(s, p->good.gname) == 0)
         {
@@ -113,10 +114,10 @@ void showGoods(Node *List)
 {
     Node *p;
     printf("\n今日商品详情\n");
-    printf("||商品名     ||单价      ||数量      ||\n");
+    printf("||商 品 名     ||单价      ||数量      ||\n");
     for (p = List->next; p != NULL; p = p->next)
     {
-        printf("||%3s       ||%.2f      ||%2d        ||\n", p->good.gname, p->good.gprice, p->good.gnum);
+        printf("||%5s     ||%.2f      ||%2d        ||\n", p->good.gname, p->good.gprice, p->good.gnum);
     }
     printf(".............................................\n");
 }
@@ -137,6 +138,7 @@ void showBuygoods(Node *List)
     }
     printf(".............................................\n");
     printf("您一共需要付: %3.2f 元", x);
+    Goodstofile(filename);
     cout << "感谢您的购买，欢迎下次光临" << endl;
 }
 int buy()
@@ -150,21 +152,45 @@ int buy()
     scanf("%s", s);
     printf("请输入购买数量:");
     scanf("%d", &n);
-    Node *pnew, *p;
-    p = List_index(GList, s);
+    Node *pnew;
+    Node *p = NULL;
+    if (List_index(GList, s))
+    {
+        p = List_index(GList, s);
+    }
     if (p == NULL)
     {
         cout << "本超市并未上架该物品，请联系管理员补货" << endl;
+        buy();
         return 0;
     }
     else if (p->good.gnum < n)
     {
         cout << "本超市该物品数量不足，请联系管理员补货" << endl;
+        buy();
         return 0;
     }
     else
     {
         cout << "已经添加到购物车" << endl;
+    }
+    if (List_index(Buy_List, s) != NULL)
+    {
+        cout<<"重复购买，自动添加"<<endl;
+        pnew = List_index(Buy_List, s);
+        pnew->good.gnum += n;
+        p->good.gnum -= n;
+        cout << "继续购买.......1 / 结账..........0 :";
+        cin >> choose;
+        if (choose)
+        {
+            buy();
+        }
+        else
+        {
+            showBuygoods(Buy_List);
+        }
+        return 1;
     }
     p->good.gnum -= n;
     pnew = (Node *)malloc(sizeof(Node));
@@ -192,14 +218,21 @@ void opList_customer()
 {
     int i;
     printf("\n--欢迎来到本超市--\n");
+lb:
     printf("\t--1.购买商品--\n");
-    printf("\t--2.离开--\n");
+    printf("\t--2.查看商品--\n");
+    printf("\t--3.离开--\n");
     printf("\t--------------\n");
     printf("请选择操作:");
     cin >> i;
     if (i == 1)
     {
         buy();
+    }
+    else if (i == 2)
+    {
+        showGoods(GList);
+        goto lb;
     }
     else
     {
@@ -280,7 +313,8 @@ lables:
     printf("\t.....1.初始化超市商品........\n");
     printf("\t.....2.补     货........... \n");
     printf("\t.....3.修     改........... \n");
-    printf("\t.....4.退出 登录........... \n");
+    printf("\t.....4.展示 商品........... \n");
+    printf("\t.....5.退出 登录........... \n");
     printf(".................................\n");
     cout << "请选择你的操作:";
     cin >> i;
@@ -300,6 +334,10 @@ lables:
         goto lables;
         break;
     case 4:
+        showGoods(GList);
+        goto lables;
+        break;
+    case 5:
         cout << "感谢你的使用" << endl;
         userListtoFile(userFile);
         Goodstofile(filename);
@@ -329,7 +367,7 @@ int Goodsgetfromfile(char *filename)
         {
             break;
         }
-        cout << "正在写入" << endl;
+        //cout << "正在写入" << endl;
         fscanf(fp, "%d", &gid);
         fscanf(fp, "%s", name);
         fscanf(fp, "%d", &gnum);
@@ -383,7 +421,7 @@ int getUserList(char *userFile)
         {
             break;
         }
-        cout << "正在写入" << endl;
+        //cout << "正在写入" << endl;
         fscanf(fp, "%d", &ifowner);
         fscanf(fp, "%s", name);
         fscanf(fp, "%s", password);
@@ -425,7 +463,8 @@ lables2:
     printf("\t.....2.补     货........... \n");
     printf("\t.....3.修     改........... \n");
     printf("\t.....4.增设管理员........... \n");
-    printf("\t.....5.退出 登录........... \n");
+    printf("\t.....5.展示 商品........... \n");
+    printf("\t.....6.退出 登录........... \n");
     printf(".................................\n");
     cout << "请选择你的操作:";
     cin >> i;
@@ -449,6 +488,10 @@ lables2:
         goto lables2;
         break;
     case 5:
+        showGoods(GList);
+        goto lables2;
+        break;
+    case 6:
         cout << "感谢你的使用" << endl;
         ;
         Goodstofile(filename);
