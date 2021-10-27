@@ -62,7 +62,7 @@ void initUser(){
     uNode *p;
     p=(uNode *)malloc(sizeof(uNode));
     p->next=NULL;
-    p->user.ifowner=1;
+    p->user.ifowner=2;
     strcpy(p->user.name,"root");
     strcpy(p->user.password,"123456");
     ulist->next=p;
