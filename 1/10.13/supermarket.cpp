@@ -25,6 +25,7 @@ Node *GList;
 Node *Buy_List;
 char *filename;
 char *userFile;
+void userListtoFile(char *userFile);
 void Goodstofile(char *filename)
 {
     FILE *w;
@@ -192,7 +193,7 @@ void opList_customer()
     int i;
     printf("\n--欢迎来到本超市--\n");
     printf("\t--1.购买商品--\n");
-    printf("\t--2.结账离开--\n");
+    printf("\t--2.离开--\n");
     printf("\t--------------\n");
     printf("请选择操作:");
     cin >> i;
@@ -202,6 +203,7 @@ void opList_customer()
     }
     else
     {
+        userListtoFile(userFile);
         cout << "谢谢您的光顾，欢迎下次再来" << endl;
     }
 }
@@ -299,7 +301,7 @@ lables:
         break;
     case 4:
         cout << "感谢你的使用" << endl;
-        ;
+        userListtoFile(userFile);
         Goodstofile(filename);
         exit(-1);
     }
@@ -358,7 +360,7 @@ void userListtoFile(char *userFile)
     {
         fprintf(w, "%d ", p->user.ifowner);
         fprintf(w, "%s ", p->user.name);
-        fprintf(w, "%s", p->user.password);
+        fprintf(w, "%s ", p->user.password);
         p = p->next;
     }
     fclose(w);
@@ -401,8 +403,7 @@ void addowner()
     char password[20];
     cout << "请输入账号/用户名:";
     cin >> name;
-    cout << endl
-         << "请输入密码:";
+    cout << "请输入密码:";
     cin >> password;
     uNode *p, *pnew;
     pnew = (uNode *)malloc(sizeof(uNode));
@@ -414,6 +415,7 @@ void addowner()
 
     pnew->next = p;
     ulist->next = pnew;
+    cout << "添加完成";
 }
 void opList_superowner()
 {
@@ -443,6 +445,7 @@ lables2:
         goto lables2;
         break;
     case 4:
+        addowner();
         goto lables2;
         break;
     case 5:
@@ -474,7 +477,7 @@ lab:
     if (c == 2)
     {
         regest_user();
-        userListtoFile(userFile);
+
         goto lab;
     }
     else if (c == 1)
