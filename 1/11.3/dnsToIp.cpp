@@ -180,6 +180,7 @@ void findDnsfromTree(SNode *substr,string dns){
         if(p->str !=t->str && t->rbrother == NULL){
             cout<<"树中没有该dns"<<endl;
             flag==0;
+            exit(-1);
             break;
         }
     }
@@ -190,6 +191,12 @@ void findDnsfromTree(SNode *substr,string dns){
         host = gethostbyname(hostname);
         const char *hostip = inet_ntoa(*((struct in_addr*)host->h_addr));
         cout<<hostip<<endl;
+        cout<<"跳转中"<<endl;
+        const char *wanzhi=dns.c_str();
+        char commond[30];
+        strcpy(commond,"/home/taichuguang/wincmd ");
+        strcat(commond,wanzhi);
+        system(commond);
     }
     //cout<<"end"<<endl;
 }
