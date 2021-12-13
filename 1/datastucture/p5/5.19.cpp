@@ -4,7 +4,7 @@ using namespace std;
 #define row 10
 #define lie 10
 
-void findMaan(int a[][],int m,int n){
+void findMaan(int *a[],int m,int n){
     
 }
 
