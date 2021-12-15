@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string.h>
 #include "tree.cpp"
-#include "queue.cpp"
+//#include "queue.cpp"
 using namespace std;
 
 int ifFullTree(Bitree &bt){
