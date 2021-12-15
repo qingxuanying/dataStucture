@@ -111,3 +111,17 @@ public:
     
 };
 
+int main(){
+    broTree bt;
+    cout<<"首先丰富一下词典,输入0停止"<<endl;
+    String a;
+    while(cin>>a.str){
+        if(a.str[0]=='0'){
+            break;
+        }
+        bt.insert(a);
+    }
+    cout<<"输入你要查询的单词"<<endl;
+    cin>>a.str;
+    bt.search(a);
+}

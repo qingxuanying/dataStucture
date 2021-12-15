@@ -1,1 +1,2 @@
-la=la->next;
+
+    la->next=new LNode;
